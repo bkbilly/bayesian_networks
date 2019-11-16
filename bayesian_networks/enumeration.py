@@ -36,8 +36,23 @@ class BayesianClass():
 
 class Enumeration(BayesianClass):
 
-    def __init__(self, graph):
+    def __init__(self, graph=None):
         self.graph = graph
+
+    def run(self, testcase):
+        # Initialize graph
+        parser = ParseInputs()
+        known_data = parser.get_test_data(testcase['netid'])
+        self.graph = parser.get_graph(known_data)
+
+        node, query = parser.get_query('|'.join(testcase['query']))
+        for key, value in self.graph.items():
+            print(key, value)
+        print('---------------')
+
+        # enum = Enumeration(graph)
+        enum_results = self.enum_ask(node, query)
+        parser.print_results(node, query, enum_results)
 
     def enum_ask(self, node, query):
         sorted_nodes = self.graph.keys()
@@ -76,16 +91,9 @@ class Enumeration(BayesianClass):
 
 
 if __name__ == '__main__':
-    parser = ParseInputs()
-    known_data = parser.get_test_data('burglary')
-    graph = parser.get_graph(known_data)
-    node, query = parser.get_query('P(B|j,m)')
-    print(node, query)
-
-    for key, value in graph.items():
-        print(key, value)
-    print('---------------')
-
-    enum = Enumeration(graph)
-    enum_results = enum.enum_ask(node, query)
-    parser.print_results(node, query, enum_results)
+    testcase = {
+        'netid': "burglary",
+        'query': ('B', 'j,m'),
+        'result': {True: 0.28, False: 0.72},
+    }
+    Enumeration().run(testcase)
