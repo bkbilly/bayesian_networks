@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import copy
-from bayesian import ParseInputs
+from bayesian_networks.bayesian import ParseInputs
 
 
 class BayesianClass():

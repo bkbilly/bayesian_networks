@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import random
-from bayesian import ParseInputs
+from bayesian_networks.bayesian import ParseInputs
 import logging
 from datetime import datetime
 
@@ -27,7 +27,10 @@ class ApproximateInference():
         pass
 
     def run(self, testcase):
-        self.samples = testcase['samples']
+        if 'samples' not in testcase:
+            self.samples = 10000
+        else:
+            self.samples = testcase['samples']
         if self.samples <= 5 and self.samples is not None:
             logger.setLevel(logging.DEBUG)
         # Initialize graph
@@ -117,7 +120,11 @@ class ApproximateInference():
 
 class RejectionSampling(ApproximateInference):
 
-    def __init__(self, graph=None, samples=None):
+    def __init__(self, graph=None, samples=None, showcolors=False):
+        if not showcolors:
+            for color in colors.keys():
+                colors[color] = ''
+
         self.graph = graph
         self.samples = samples
         if self.samples is not None and self.samples <= 5:
@@ -152,7 +159,11 @@ class RejectionSampling(ApproximateInference):
 
 class LikelihoodWeighting(ApproximateInference):
 
-    def __init__(self, graph=None, samples=None):
+    def __init__(self, graph=None, samples=None, showcolors=False):
+        if not showcolors:
+            for color in colors.keys():
+                colors[color] = ''
+
         self.graph = graph
         self.samples = samples
         if self.samples is not None and self.samples <= 5:

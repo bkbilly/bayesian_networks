@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='bayesian_networks',
-    version='0.5',
+    version='0.6',
     author="bkbilly",
     author_email="bkbilly@hotmail.com",
     description="Implementation for bayesian network with Enumeration, Rejection Sampling and Likelihood Weighting",
