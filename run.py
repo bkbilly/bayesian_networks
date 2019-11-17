@@ -2,26 +2,15 @@
 
 import bayesian_networks
 
-colors = {
-    'HEADER': '\033[95m',
-    'OKBLUE': '\033[94m',
-    'OKGREEN': '\033[92m',
-    'WARNING': '\033[93m',
-    'FAIL': '\033[91m',
-    'ENDC': '\033[0m',
-    'BOLD': '\033[1m',
-    'UNDERLINE': '\033[4m',
-}
-
 
 if __name__ == "__main__":
     testcases = [
-        {
-            'netid': "burglary",
-            'query': ('B', 'j,m'),
-            'result': {True: 0.28, False: 0.72},
-            'samples': 10000,
-        },
+        # {
+        #     'netid': "burglary",
+        #     'query': ('B', 'j,m'),
+        #     'result': {True: 0.28, False: 0.72},
+        #     'samples': 10000,
+        # },
         # {
         #     'netid': "sprinkler",
         #     'query': ('W', 's,-r'),
@@ -46,33 +35,36 @@ if __name__ == "__main__":
         #     'result': {True: 0.7, False: 0.3},
         #     'samples': 10000,
         # },
-        # {
-        #     'netid': "cancer",
-        #     'query': ('S', '+co,+f'),
-        #     'result': {True: 0.8, False: 0.2},
-        #     'samples': 10000,
-        # },
+        {
+            'netid': "cancer",
+            'query': ('S', '+co,+f'),
+            'result': {True: 0.8, False: 0.2},
+            'samples': 10000,
+        },
     ]
     showcolors = False
 
     if not showcolors:
-        for color in colors.keys():
-            colors[color] = ''
+        for color in bayesian_networks.colors.keys():
+            bayesian_networks.colors[color] = ''
 
     for testcase in testcases:
         myquery = 'P({}|{})'.format(testcase['query'][0], testcase['query'][1])
         print('{} {} - {} {}'.format(
-            colors['WARNING'],
+            bayesian_networks.colors['WARNING'],
             testcase['netid'],
             myquery,
-            colors['ENDC'])
+            bayesian_networks.colors['ENDC'])
         )
 
-        # print(colors['HEADER'] + '--> Enumeration' + colors['ENDC'])
-        # bayesian_networks.Enumeration().run(testcase)
+        print(bayesian_networks.colors['HEADER'] + '--> Enumeration' + bayesian_networks.colors['ENDC'])
+        enum = bayesian_networks.Enumeration()
+        bayesian_networks.print_result(enum.run(testcase), showcolors=showcolors)
 
-        print(colors['HEADER'] + '--> RejectionSampling' + colors['ENDC'])
-        bayesian_networks.RejectionSampling(showcolors=showcolors).run(testcase)
+        print(bayesian_networks.colors['HEADER'] + '--> RejectionSampling' + bayesian_networks.colors['ENDC'])
+        rejection = bayesian_networks.RejectionSampling()
+        bayesian_networks.print_result(rejection.run(testcase), showcolors=showcolors)
 
-        print(colors['HEADER'] + '--> LikelihoodWeighting' + colors['ENDC'])
-        bayesian_networks.LikelihoodWeighting(showcolors=showcolors).run(testcase)
+        print(bayesian_networks.colors['HEADER'] + '--> LikelihoodWeighting' + bayesian_networks.colors['ENDC'])
+        weighting = bayesian_networks.LikelihoodWeighting()
+        bayesian_networks.print_result(weighting.run(testcase), showcolors=showcolors)

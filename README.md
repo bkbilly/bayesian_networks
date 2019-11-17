@@ -16,7 +16,15 @@ testcase = {
     'samples': 10000,
 }
 
-bayesian_networks.Enumeration().run(testcase)
-bayesian_networks.RejectionSampling().run(testcase)
-bayesian_networks.LikelihoodWeighting().run(testcase)
+enum = bayesian_networks.Enumeration()
+results = enum.run(testcase)
+bayesian_networks.print_result(results, showcolors=True)
+
+rejection = bayesian_networks.RejectionSampling()
+results = rejection.run(testcase)
+bayesian_networks.print_result(results, showcolors=True)
+
+weighting = bayesian_networks.LikelihoodWeighting()
+results = weighting.run(testcase)
+bayesian_networks.print_result(results, showcolors=True)
 ```

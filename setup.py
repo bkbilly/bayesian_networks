@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='bayesian_networks',
-    version='0.6',
+    version='0.8',
     author="bkbilly",
     author_email="bkbilly@hotmail.com",
     description="Implementation for bayesian network with Enumeration, Rejection Sampling and Likelihood Weighting",
@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         'pytz>=2019.2',
-        'matplotlib==3.1.1',
+        'matplotlib>=3.0.3',
         'networkx>=2.4',
     ],
     classifiers=[

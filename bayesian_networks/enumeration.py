@@ -2,6 +2,18 @@
 
 import copy
 from bayesian_networks.bayesian import ParseInputs
+from datetime import datetime
+
+colors = {
+    'HEADER': '\033[95m',
+    'OKBLUE': '\033[94m',
+    'OKGREEN': '\033[92m',
+    'WARNING': '\033[93m',
+    'FAIL': '\033[91m',
+    'ENDC': '\033[0m',
+    'BOLD': '\033[1m',
+    'UNDERLINE': '\033[4m',
+}
 
 
 class BayesianClass():
@@ -44,18 +56,28 @@ class Enumeration(BayesianClass):
         parser = ParseInputs()
         known_data = parser.get_test_data(testcase['netid'])
         self.graph = parser.get_graph(known_data)
-
         node, query = parser.get_query('|'.join(testcase['query']))
-        for key, value in self.graph.items():
-            print(key, value)
-        print('---------------')
 
-        # enum = Enumeration(graph)
+        timer_start = datetime.now()
         enum_results = self.enum_ask(node, query)
-        parser.print_results(node, query, enum_results)
+        timediff = datetime.now() - timer_start
+
+        normalized = {}
+        unnormalized = {}
+        for enum_result in enum_results:
+            unnormalized[enum_result['condition']] = enum_result['prob']
+            normalized[enum_result['condition']] = enum_result['norm']
+        run_result = {
+            'unnormalized': unnormalized,
+            'normalized': normalized,
+            'timediff': timediff,
+            'too_much_wrong': False,
+            'percWrong': False,
+        }
+        return run_result
 
     def enum_ask(self, node, query):
-        sorted_nodes = self.graph.keys()
+        sorted_nodes = list(self.graph.keys())
         prob_results = []
         for cond in [False, True]:
             query_copy = copy.deepcopy(query)

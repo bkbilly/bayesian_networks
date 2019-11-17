@@ -42,23 +42,24 @@ class ApproximateInference():
 
         # Test with my data graph
         timer_start = datetime.now()
-        inference = self.start_inference(node, query)
-        normalized = self.normalize(inference)
-        print('  Inference: {}'.format(inference))
-        print('  Normalized: {}'.format(normalized))
+        unnormalized = self.start_inference(node, query)
+        normalized = self.normalize(unnormalized)
+        timediff = datetime.now() - timer_start
+
         percWrong = {}
         too_much_wrong = False
         for key in normalized.keys():
             percWrong[key] = round(abs(normalized[key] - testcase['result'][key]), 3)
             if percWrong[key] >= 0.1:
                 too_much_wrong = True
-        if too_much_wrong:
-            print('{} ! percent Wrong: {}{}'.format(
-                colors['FAIL'],
-                percWrong,
-                colors['ENDC'])
-            )
-        print('  time: {}'.format(datetime.now() - timer_start))
+        run_result = {
+            'unnormalized': unnormalized,
+            'normalized': normalized,
+            'timediff': timediff,
+            'too_much_wrong': too_much_wrong,
+            'percWrong': percWrong,
+        }
+        return run_result
 
     def get_probability(self, node, conditions):
         prob = self.graph[node]['prob']
@@ -86,7 +87,7 @@ class ApproximateInference():
         mysum = float(sum(prob_results.values()))
         for cond, value in prob_results.items():
             if mysum != 0:
-                normalized[cond] = round(value / mysum, 3)
+                normalized[cond] = value / mysum
             else:
                 normalized[cond] = 0
         return normalized
@@ -176,8 +177,8 @@ class LikelihoodWeighting(ApproximateInference):
             event, weight = self.weighted_sample(query)
             likelihood[event[node]['value']] += weight
 
-        likelihood[False] = round(likelihood[False], 3)
-        likelihood[True] = round(likelihood[True], 3)
+        likelihood[False] = likelihood[False]
+        likelihood[True] = likelihood[True]
         return likelihood
 
     def weighted_sample(self, query):
