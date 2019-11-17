@@ -1,4 +1,5 @@
 # Bayesian Networks
+[![PyPI Version](https://img.shields.io/pypi/v/bayesian-networks?label=PyPI&logo=pypi)](https://pypi.org/project/bayesian-networks/)
 
 Implementation for bayesian network with 
 
@@ -6,6 +7,12 @@ Implementation for bayesian network with
   - Rejection Sampling
   - Likelihood Weighting
 
+## Install
+```bash
+sudo pip3 install --upgrade bayesian-networks
+```
+
+## How to use
 ```python
 import bayesian_networks
 
