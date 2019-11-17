@@ -1,4 +1,5 @@
 # Bayesian Networks
+[![PyPI Version](https://img.shields.io/pypi/v/bayesian-networks?label=PyPI&logo=pypi)](https://pypi.org/project/bayesian-networks/)
 
 Implementation for bayesian network with 
 
