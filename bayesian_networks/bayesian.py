@@ -117,6 +117,8 @@ class ParseInputs():
                 prob = float(mycount + 1) / float(mycount2 + 2)
                 prob = round(prob, 2)
                 known_data[inquery] = prob
+        elif type(netID) == dict:
+            known_data = netID
 
         return known_data
 

@@ -5,12 +5,12 @@ import bayesian_networks
 
 if __name__ == "__main__":
     testcases = [
-        # {
-        #     'netid': "burglary",
-        #     'query': ('B', 'j,m'),
-        #     'result': {True: 0.28, False: 0.72},
-        #     'samples': 10000,
-        # },
+        {
+            'netid': "burglary",
+            'query': ('B', 'j,m'),
+            'result': {True: 0.28, False: 0.72},
+            'samples': 10000,
+        },
         # {
         #     'netid': "sprinkler",
         #     'query': ('W', 's,-r'),
@@ -35,12 +35,22 @@ if __name__ == "__main__":
         #     'result': {True: 0.7, False: 0.3},
         #     'samples': 10000,
         # },
-        {
-            'netid': "cancer",
-            'query': ('S', '+co,+f'),
-            'result': {True: 0.8, False: 0.2},
-            'samples': 10000,
-        },
+        # {
+        #     'netid': {
+        #         'P(D)': 0.1,
+        #         'P(T|d)': 0.99,
+        #         'P(T|-d)': 0.05,
+        #     },
+        #     'query': ('D', '+t'),
+        #     'result': {True: 0.7, False: 0.3},
+        #     'samples': 10000,
+        # },
+        # {
+        #     'netid': "cancer",
+        #     'query': ('S', '+co,+f'),
+        #     'result': {True: 0.8, False: 0.2},
+        #     'samples': 10000,
+        # },
     ]
     showcolors = False
 
