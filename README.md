@@ -7,6 +7,12 @@ Implementation for bayesian network with
   - Rejection Sampling
   - Likelihood Weighting
 
+## Install
+```bash
+sudo pip3 install --upgrade bayesian-networks
+```
+
+## How to use
 ```python
 import bayesian_networks
 
