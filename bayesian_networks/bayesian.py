@@ -51,7 +51,7 @@ class ParseInputs():
             known_data = {
                 'P(D)': 0.1,
                 'P(T|d)': 0.99,
-                'P(T|-d)': 0.05,
+                'P(T|-d)': 0.01,
             }
         elif netID == 'cancer':
             known_data = {
